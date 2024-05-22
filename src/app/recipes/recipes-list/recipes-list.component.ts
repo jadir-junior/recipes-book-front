@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Recipe } from '../recipe.model';
 import { RecipesService } from '../services/recipes.service';
 import { DataViewModule } from 'primeng/dataview';
 
@@ -8,27 +7,21 @@ import { DataViewModule } from 'primeng/dataview';
   standalone: true,
   imports: [DataViewModule],
   template: `
-    <div>
-      <p-dataView
-        #dv
-        [value]="recipes"
-        [paginator]="true"
-        [rows]="9"
-        filterBy="name"
-        layout="grid"
-      ></p-dataView>
-    </div>
+    @if(recipes$ | async; as recipes) {
+    <p-dataView
+      #dv
+      [value]="recipes"
+      [paginator]="true"
+      [rows]="9"
+      filterBy="name"
+      layout="grid"
+    ></p-dataView>
+    }
   `,
   styles: ``,
 })
-export class RecipesListComponent implements OnInit {
-  recipes!: Recipe[];
+export class RecipesListComponent {
+  recipes$ = this.recipeService.recipes$;
 
   constructor(private recipeService: RecipesService) {}
-
-  ngOnInit(): void {
-    this.recipeService.getRecipes().subscribe((result) => {
-      this.recipes = result;
-    });
-  }
 }
