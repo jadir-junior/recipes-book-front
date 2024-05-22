@@ -10,9 +10,7 @@ const BASE_PATH = environment.BASE_PATH;
   providedIn: 'root',
 })
 export class RecipesService {
-  constructor(private http: HttpClient) {}
+  recipes$ = this.http.get<Recipe[]>(`${BASE_PATH}/recipes`);
 
-  getRecipes(): Observable<Recipe[]> {
-    return this.http.get<Recipe[]>(`${BASE_PATH}/recipes`);
-  }
+  constructor(private http: HttpClient) {}
 }
