@@ -5,6 +5,8 @@ import { RatingModule } from 'primeng/rating';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
+import { combineLatest, map } from 'rxjs';
+import { Recipe } from '../recipe.model';
 
 @Component({
   selector: 'app-recipes-list',
@@ -18,7 +20,7 @@ import { ButtonModule } from 'primeng/button';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @if(recipes$ | async; as recipes) {
+    @if(filtredRecipes$ | async; as recipes) {
     <p-dataView
       #dv
       [value]="recipes"
@@ -63,5 +65,25 @@ import { ButtonModule } from 'primeng/button';
 export class RecipesListComponent {
   recipes$ = this.recipeService.recipes$;
 
+  filterRecipesAction$ = this.recipeService.filterRecipesAction$;
+
+  filtredRecipes$ = combineLatest([
+    this.recipes$,
+    this.filterRecipesAction$,
+  ]).pipe(
+    map(([recipes, filter]: [Recipe[], Partial<Recipe>]) =>
+      this.filterByTitle(recipes, filter)
+    )
+  );
+
   constructor(private recipeService: RecipesService) {}
+
+  filterByTitle(recipes: Recipe[], filter: Partial<Recipe>): Recipe[] {
+    return recipes.filter(
+      (recipe) =>
+        recipe.title
+          ?.toLowerCase()
+          .indexOf(filter?.title?.toLowerCase() ?? '') != -1
+    );
+  }
 }
