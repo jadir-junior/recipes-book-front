@@ -10,7 +10,6 @@ import { ToolbarModule } from 'primeng/toolbar';
     <p-toolbar>
       <div>
         <p-button routerLink="" label="Recipes Book" [link]="true"></p-button>
-        <!-- <img [src]="'assets/recipes/chef.png'" alt="logo" /> -->
       </div>
       <div>
         <p-button
@@ -32,6 +31,14 @@ import { ToolbarModule } from 'primeng/toolbar';
           class="pi pi-user"
           style="font-size: 1..3rem; color: #FFF; margin-bottom: 12px; margin-left: 40px;"
         ></i>
+      </div>
+      <div class="flex gap-2">
+        <p-button
+          label="Log in"
+          severity="secondary"
+          [style]="{ width: '100px' }"
+        ></p-button>
+        <p-button label="Sign up"></p-button>
       </div>
     </p-toolbar>
   `,

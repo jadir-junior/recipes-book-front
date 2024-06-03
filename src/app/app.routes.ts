@@ -9,4 +9,11 @@ export const routes: Routes = [
         (comp) => comp.RecipesPageComponent
       ),
   },
+  {
+    path: 'recipes/details',
+    loadComponent: () =>
+      import(
+        './recipes/recipes-details-page/recipes-details-page.component'
+      ).then((comp) => comp.RecipesDetailsPageComponent),
+  },
 ];

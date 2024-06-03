@@ -1,3 +1,4 @@
+import { SharedDataService } from '../services/shared-data.service';
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { RecipesService } from '../services/recipes.service';
 import { DataViewModule } from 'primeng/dataview';
@@ -7,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { combineLatest, map } from 'rxjs';
 import { Recipe } from '../recipe.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-recipes-list',
@@ -32,7 +34,7 @@ import { Recipe } from '../recipe.model';
         <ng-template let-recipes pTemplate="list">
           <div class="grid grid-nogutter">
             <div *ngFor="let recipe of recipes" class="col-12">
-              <div class="p-col-12 p-md-3">
+              <div class="p-col-12 p-md-3" (click)="editRecipe(recipe)">
                 <div>
                   <div>
                     <div>
@@ -80,7 +82,11 @@ export class RecipesListComponent implements OnInit {
     )
   );
 
-  constructor(private recipeService: RecipesService) {}
+  constructor(
+    private recipeService: RecipesService,
+    private sharedDataService: SharedDataService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.filtredRecipes$.subscribe((recipes) => console.log(recipes));
@@ -93,5 +99,10 @@ export class RecipesListComponent implements OnInit {
           ?.toLowerCase()
           .indexOf(filter?.title?.toLowerCase() ?? '') != -1
     );
+  }
+
+  editRecipe(recipe: Recipe): void {
+    this.sharedDataService.updateSelectRecipre(recipe);
+    this.router.navigate(['/recipes/details']);
   }
 }
