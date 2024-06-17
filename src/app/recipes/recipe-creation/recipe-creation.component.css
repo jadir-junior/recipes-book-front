@@ -1,0 +1,26 @@
+.section-create-recipe {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--text-gray-light);
+  border-bottom: 1px solid var(--text-gray-light);
+}
+
+.form {
+  padding: 60px;
+}
+
+.form-group {
+  margin-bottom: 46px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.form-group input {
+  width: 100%;
+  margin-bottom: 8px;
+}

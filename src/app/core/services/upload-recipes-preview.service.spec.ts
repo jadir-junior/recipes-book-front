@@ -1,16 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 
-import { RecipesService } from './recipes.service';
+import { UploadRecipesPreviewService } from './upload-recipes-preview.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-describe('RecipesService', () => {
-  let service: RecipesService;
+describe('UploadRecipesPreviewService', () => {
+  let service: UploadRecipesPreviewService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
     });
-    service = TestBed.inject(RecipesService);
+    service = TestBed.inject(UploadRecipesPreviewService);
   });
 
   it('should be created', () => {

@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Recipe } from '../recipe.model';
 import { environment } from '../../../environments/environment';
 import {
   BehaviorSubject,
@@ -10,6 +9,7 @@ import {
   of,
   share,
 } from 'rxjs';
+import { Recipe } from '../recipe.model';
 
 const BASE_PATH = environment.BASE_PATH;
 
@@ -46,7 +46,7 @@ export class RecipesService {
     this.filterRecipeSubject.next(criteria);
   }
 
-  saveRecipe(recipe: Partial<Recipe>): Observable<Recipe> {
+  saveRecipe(recipe: Recipe): Observable<Recipe> {
     return this.http.post<Recipe>(`${BASE_PATH}/recipes`, recipe);
   }
 }

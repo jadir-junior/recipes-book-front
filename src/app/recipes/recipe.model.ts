@@ -1,12 +1,12 @@
 export interface Recipe {
-  id: number;
-  title: string;
-  ingredients: string;
+  id?: number;
+  title?: string;
+  ingredients?: string;
   tags?: string;
-  imageUrl: string;
-  cookingTime?: number;
-  prepTime?: number;
-  yield: number;
+  imageUrl?: string;
+  cookingTime?: string;
+  prepTime?: string;
+  yield?: number;
   steps?: string;
-  rating: number;
+  rating?: number;
 }
