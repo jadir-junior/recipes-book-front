@@ -55,10 +55,10 @@ export class RecipeCreationComponent {
     imageUrl: [''],
     cookingTimeHours: new FormControl<number | null>(null),
     cookingTimeMinutes: new FormControl<number | null>(null),
-    yield: new FormControl<number | null>(null, [Validators.required]),
+    servings: new FormControl<number | null>(null, [Validators.required]),
     prepTimeHours: new FormControl<number | null>(null),
     prepTimeMinutes: new FormControl<number | null>(null),
-    steps: [''],
+    steps: this.fb.array([this.fb.control('', [Validators.required])]),
   });
 
   tags = recipeTags.TAGS;
@@ -89,6 +89,10 @@ export class RecipeCreationComponent {
     return this.recipeForm.get('ingredients') as FormArray;
   }
 
+  get steps() {
+    return this.recipeForm.get('steps') as FormArray;
+  }
+
   // valueChange$ = this.recipeForm.valueChanges.pipe(
   //   concatMap((formValue) =>
   //     this.recipeService.saveRecipe(formValue as Recipe)
@@ -107,24 +111,32 @@ export class RecipeCreationComponent {
     this.ingredients.push(this.fb.control('', [Validators.required]));
   }
 
-  onSave({ value }: FormGroup): void {
-    const recipe: Recipe = {
+  addSteps(): void {
+    this.steps.push(this.fb.control('', [Validators.required]));
+  }
+
+  onSave(form: FormGroup): void {
+    this.recipeService
+      .saveRecipe(this.handleFromFormToRecipe(form))
+      .pipe(
+        tap((recipe) => console.log(recipe)),
+        catchError((errors) => of(errors)),
+        tap(() => this.saveSuccess())
+      )
+      .subscribe((recipe) => console.log(recipe));
+  }
+
+  handleFromFormToRecipe({ value }: FormGroup): Recipe {
+    return {
       title: value.title,
       ingredients: value.ingredients,
       prepTime: `${value.prepTimeHours ?? 0}:${value.prepTimeMinutes ?? 0}`,
-      cookingTime: `${value.cookingTimeHours ?? 0}:${
+      cookTime: `${value.cookingTimeHours ?? 0}:${
         value.cookingTimeMinutes ?? 0
       }`,
+      servings: value.servings,
+      steps: value.steps,
     };
-    console.log(recipe);
-    // this.recipeService
-    //   .saveRecipe(value)
-    //   .pipe
-    //   // tap((recipe) => this.recipeForm.patchValue(recipe)),
-    //   // catchError((errors) => of(errors)),
-    //   // tap(() => this.saveSuccess())
-    //   ()
-    //   .subscribe((recipe) => console.log(recipe));
   }
 
   saveSuccess(): void {

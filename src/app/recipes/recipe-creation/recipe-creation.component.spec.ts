@@ -71,21 +71,28 @@ describe('RecipeCreationComponent', () => {
     expect(ingredients.length).toBe(2);
   });
 
-  it('should call onSave and log the recipe', async () => {
+  it('should call onSave and save in server the recipe', async () => {
     jest.spyOn(console, 'log');
     const titleInput = screen.getByLabelText('title');
-    const ingredientsOneInput = screen.getByLabelText('ingredients-0');
 
+    const ingredientsOneInput = screen.getByLabelText('ingredients-0');
     const addButton = screen.getByLabelText('Add Ingredient');
     await userEvent.click(addButton);
-
     const ingredientsTwoInput = screen.getByLabelText('ingredients-1');
+
     const prepTimeHoursInput = screen.getByLabelText('prep time hours');
     const prepTimeMinutesInput = screen.getByLabelText('prep time minutes');
     const cookingTimeHoursInput = screen.getByLabelText('cooking time hours');
     const cookingTimeMinutesInput = screen.getByLabelText(
       'cooking time minutes'
     );
+    const servingsInput = screen.getByLabelText('servings');
+
+    const stepOneInput = screen.getByLabelText('steps-0');
+    const addStepButton = screen.getByLabelText('Add Step');
+    await userEvent.click(addStepButton);
+    const stepTwoInput = screen.getByLabelText('steps-1');
+
     const saveButton = screen.getByText('Save');
 
     await userEvent.type(titleInput, 'Test Recipe');
@@ -95,14 +102,19 @@ describe('RecipeCreationComponent', () => {
     UserEvent.typeNumber(prepTimeMinutesInput, 30);
     UserEvent.typeNumber(cookingTimeHoursInput, 0);
     UserEvent.typeNumber(cookingTimeMinutesInput, 45);
+    UserEvent.typeNumber(servingsInput, 6);
+    await userEvent.type(stepOneInput, 'step 1');
+    await userEvent.type(stepTwoInput, 'step 2');
 
     await userEvent.click(saveButton);
 
-    expect(console.log).toHaveBeenCalledWith({
+    expect(recipeService.saveRecipe).toHaveBeenCalledWith({
       title: 'Test Recipe',
       ingredients: ['Ingredient 1', 'Ingredient 2'],
       prepTime: '1:30',
-      cookingTime: '0:45',
+      cookTime: '0:45',
+      servings: 6,
+      steps: ['step 1', 'step 2'],
     });
   });
 
