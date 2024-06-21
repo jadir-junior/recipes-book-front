@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
+import { PrimeNGConfig } from 'primeng/api';
 
 @Component({
   selector: 'app-root',
@@ -12,5 +13,7 @@ import { HeaderComponent } from './components/header/header.component';
   </div>`,
 })
 export class AppComponent {
-  title = 'recipes-book-front';
+  constructor(private primeConfig: PrimeNGConfig) {
+    this.primeConfig.ripple = true;
+  }
 }
