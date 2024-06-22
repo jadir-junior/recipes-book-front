@@ -1,25 +1,28 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { ToolbarModule } from 'primeng/toolbar';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [ButtonModule, ToolbarModule],
+  imports: [ButtonModule, ToolbarModule, RouterLink],
   template: `
     <p-toolbar>
       <div>
-        <p-button routerLink="" label="Recipes Book" [link]="true"></p-button>
+        <a routerLink="/" class="logo">
+          Perfect<span class="logo-recipe">Recipe</span>
+        </a>
       </div>
       <div>
         <p-button
           routerLink="recipes/create"
-          label="My recipes"
+          label="My Recipes"
           [link]="true"
         ></p-button>
         <p-button
           routerLink="recipes/create"
-          label="My favourites"
+          label="My Favourites"
           [link]="true"
         ></p-button>
         <p-button
@@ -42,5 +45,17 @@ import { ToolbarModule } from 'primeng/toolbar';
       </div>
     </p-toolbar>
   `,
+  styles: [
+    `
+      .logo {
+        font-size: 22px;
+        font-weight: bold;
+      }
+
+      .logo .logo-recipe {
+        color: var(--primary-color);
+      }
+    `,
+  ],
 })
 export class HeaderComponent {}

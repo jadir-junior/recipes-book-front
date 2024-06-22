@@ -1,1 +1,162 @@
-<p>recipe-creation works!</p>
+<div class="section-create-recipe">
+  <h1>Create a new recipe</h1>
+  <p-button (onClick)="onSave(recipeForm)" ariaLabel="save">Save</p-button>
+</div>
+
+<form
+  [formGroup]="recipeForm"
+  class="form"
+  style="width: 600px; margin: 0 auto"
+>
+  <div>
+    <div class="form-group">
+      <label for="title">Recipe Title:</label>
+      <input
+        type="text"
+        name="Title"
+        formControlName="title"
+        pInputText
+        aria-label="title"
+      />
+    </div>
+
+    <div class="form-group" formArrayName="ingredients">
+      <label for="Ingredients">Ingredients: </label>
+      <div *ngFor="let ingredient of ingredients.controls; let i = index">
+        <input
+          type="text"
+          name="ingredients-{{ i }}"
+          [formControlName]="i"
+          [attr.aria-label]="'ingredients-' + i"
+          pInputText
+        />
+      </div>
+
+      <p-button
+        [link]="true"
+        severity="primary"
+        (onClick)="addIngredient()"
+        ariaLabel="Add Ingredient"
+      >
+        + Add
+      </p-button>
+    </div>
+
+    <div style="margin-bottom: 46px">
+      <label
+        for="tags"
+        style="font-size: 24px; margin-bottom: 8px; display: block"
+      >
+        Tags:
+      </label>
+      <div class="flex aling-items-center gap-2">
+        <div *ngFor="let tag of tags">
+          <p-radioButton
+            [inputId]="tag.key"
+            [value]="tag"
+            formControlName="tags"
+          ></p-radioButton>
+          <label [for]="tag.key" class="ml-2">{{ tag.name }}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="form-group">
+      <label for="servings">Servings:</label>
+      <div class="flex flex-column gap-2 p-fluid">
+        <p-inputNumber
+          name="servings"
+          formControlName="servings"
+          placeholder="#"
+          aria-describedby="servings-help"
+          ariaLabel="servings"
+          [min]="0"
+          [max]="10"
+        />
+        <small id="servings-help">
+          How many portions does this recipe make?
+        </small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="prepTime">Prep Time</label>
+      <div class="flex gap-2 p-fluid">
+        <p-inputNumber
+          name="prepTimeHours"
+          formControlName="prepTimeHours"
+          placeholder="Hours 0"
+          [min]="0"
+          [max]="24"
+          ariaLabel="prep time hours"
+        />
+        <p-inputNumber
+          name="prepTimeMinutes"
+          formControlName="prepTimeMinutes"
+          ariaLabel="prep time minutes"
+          placeholder="Minutes 0"
+          [min]="0"
+          [max]="60"
+        />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="cookingTime">Cooking Time</label>
+      <div class="flex gap-2 p-fluid">
+        <p-inputNumber
+          name="cookingTimeHours"
+          formControlName="cookingTimeHours"
+          placeholder="Hours 0"
+          [min]="0"
+          [max]="24"
+          ariaLabel="cooking time hours"
+        />
+        <p-inputNumber
+          name="cookingTimeMinutes"
+          formControlName="cookingTimeMinutes"
+          placeholder="Minutes 0"
+          [min]="0"
+          [max]="24"
+          ariaLabel="cooking time minutes"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="form-group p-fluid" formArrayName="steps">
+      <label for="steps">Steps</label>
+      <div *ngFor="let step of steps.controls; let i = index">
+        <input
+          pInputText
+          id="steps"
+          name="steps-{{ i }}"
+          [formControlName]="i"
+          [attr.aria-label]="'steps-' + i"
+        />
+      </div>
+
+      <p-button
+        [link]="true"
+        severity="primary"
+        (onClick)="addSteps()"
+        ariaLabel="Add Step"
+      >
+        + Add
+      </p-button>
+    </div>
+
+    <div>
+      <label for="imageUrl">Image URL</label>
+      <p-fileUpload
+        name="imageUrl"
+        [multiple]="true"
+        [customUpload]="true"
+        (uploadHandler)="onUpload($event.files)"
+      ></p-fileUpload>
+    </div>
+  </div>
+</form>

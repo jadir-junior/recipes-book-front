@@ -31,33 +31,32 @@ import { Router } from '@angular/router';
         filterBy="name"
       >
         <ng-template let-recipes pTemplate="list">
-          <div class="grid grid-nogutter">
-            <div *ngFor="let recipe of recipes" class="col-12">
-              <div class="p-col-12 p-md-3" (click)="editRecipe(recipe)">
+          <div class="grid">
+            <div *ngFor="let recipe of recipes" class="col-4">
+              <div class="rcp-card" (click)="editRecipe(recipe)">
                 <div>
-                  <div>
+                  <!-- <div>
                     <div>
                       <i class="pi pi-tag"></i>
                       <span>{{ recipe.category }}</span>
                     </div>
-                  </div>
+                  </div> -->
                   <div>
-                    <img
+                    <!-- <img
                       [src]="'assets/recipes/' + recipe.imageUrl"
                       [alt]="recipe.title"
-                    />
-                    <div>{{ recipe?.title }}</div>
-                    <div>{{ recipe?.title }}</div>
-                    <p-rating
+                    /> -->
+                    <div class="rcp-title">{{ recipe?.title }}</div>
+                    <!-- <p-rating
                       [ngModel]="recipe.rating"
                       [readonly]="true"
                       [cancel]="false"
-                    ></p-rating>
+                    ></p-rating> -->
                   </div>
-                  <div>
+                  <!-- <div>
                     <span>{{ recipe?.prepTime }} min</span>
                     <p-button icon="pi pi-heart"></p-button>
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>
@@ -66,6 +65,19 @@ import { Router } from '@angular/router';
       </p-dataView>
     </div>
   `,
+  styles: [
+    `
+      .rcp-card {
+        border: 1px solid var(--grayscale-light);
+      }
+
+      .rcp-title {
+        color: var(--text-black);
+        font-size: 21px;
+        font-weight: 600;
+      }
+    `,
+  ],
 })
 export class RecipesListComponent implements OnInit {
   recipes$ = this.recipeService.recipes$;

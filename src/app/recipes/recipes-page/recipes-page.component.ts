@@ -13,7 +13,8 @@ import { DailyDishSectionComponent } from '../../components/daily-dish-section/d
   ],
   template: `<div>
     <app-daily-dish-section></app-daily-dish-section>
-    <app-recipes-filter></app-recipes-filter>
+    <!-- <app-recipes-filter></app-recipes-filter> -->
+    <h1>Explore Recipes</h1>
     <app-recipes-list></app-recipes-list>
   </div>`,
 })

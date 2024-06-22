@@ -9,10 +9,12 @@ export class SharedDataService {
   private selectedRecipeSubject = new BehaviorSubject<Recipe>({
     id: 0,
     title: '',
-    ingredients: '',
+    ingredients: [''],
     imageUrl: '',
-    yield: 0,
-    rating: 0,
+    servings: 0,
+    steps: [''],
+    cookTime: '',
+    prepTime: '',
   });
   selectedRecipeAction$ = this.selectedRecipeSubject.asObservable();
 

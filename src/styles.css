@@ -4,16 +4,37 @@ html {
 }
 
 :root {
-  --primary-color: #b65f54;
+  --primary-color: #b66055;
+  --primary-color-hover: #974e44;
+  --primary-color-active: #793e37;
+
   --secondary-color: #ebebeb;
+  --secondary-color-hover: #a5a5a5;
+  --secondary-color-active: #878787;
+
+  --grayscale-light: #ebebeb;
+  --grayscale: #a5a5a5;
 
   --text-gray-light: #ebebeb;
   --text-gray: #a5a5a5;
   --text-gray-dark: #878787;
+  --text-black: #000;
+
+  --border-color: #a5a5a5;
 }
 
 body {
   margin: 0;
+  font-family: "Roboto", sans-serif;
+}
+
+small {
+  color: var(--text-gray);
+}
+
+.p-disabled,
+.p-component:disabled {
+  opacity: 0.6;
 }
 
 .p-toolbar {
@@ -33,14 +54,582 @@ body {
   font-weight: 600;
 }
 
+.p-button:not(:disabled):hover {
+  background: var(--primary-color-hover);
+  color: #ffffff;
+  border-color: var(--primary-color-hover);
+}
+
+.p-button:not(:disabled):active {
+  background: var(--primary-color-active);
+  color: #ffffff;
+  border-color: var(--primary-color-active);
+}
+
 .p-button.p-button-secondary {
   color: black;
   background: var(--secondary-color);
   border: 1px solid var(--secondary-color);
 }
 
+.p-button.p-button-secondary:not(:disabled):hover {
+  background: var(--secondary-color-hover);
+  color: #ffffff;
+  border-color: var(--secondary-color-hover);
+}
+
+.p-button.p-button-secondary:not(:disabled):active {
+  background: var(--secondary-color-active);
+  color: #ffffff;
+  border-color: var(--secondary-color-active);
+}
+
 .p-button.p-button-link {
-  color: black;
+  color: var(--primary-color);
   background: transparent;
   border: transparent;
+}
+
+.p-button.p-button-link:not(:disabled):hover {
+  background: transparent;
+  color: var(--primary-color-hover);
+  border-color: transparent;
+}
+
+.p-button.p-button-link:not(:disabled):hover .p-button-label {
+  text-decoration: none;
+}
+
+.p-button.p-button-link:not(:disabled):focus {
+  background: transparent;
+  box-shadow: 0 0 0 0.2rem #bfdbfe;
+  border-color: transparent;
+}
+
+.p-button.p-button-link:not(:disabled):active {
+  background: transparent;
+  color: #1d4ed8;
+  border-color: transparent;
+}
+
+.p-button.p-disabled {
+  background-color: #ebebeb;
+  color: black;
+}
+
+/** INPUT TEXT **/
+
+.p-inputtext {
+  font-family: var(--font-family);
+  font-feature-settings: var(--font-feature-settings, normal);
+  font-size: 1rem;
+  font-weight: 500;
+  color: black;
+  background: #ffffff;
+  padding: 0.75rem 0.75rem;
+  border: 1px solid var(--border-color);
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s,
+    box-shadow 0.2s;
+  appearance: none;
+  border-radius: 6px;
+}
+
+.p-inputtext:enabled:hover {
+  border-color: var(--primary-color);
+}
+
+.p-inputtext:enabled:focus {
+  outline: 0 none;
+  outline-offset: 0;
+  border-color: var(--primary-color-active);
+}
+
+.p-inputtext.ng-dirty.ng-invalid {
+  border-color: #e24c4c;
+}
+
+.p-inputtext.p-variant-filled {
+  background-color: #f3f4f6;
+}
+
+.p-inputtext.p-variant-filled:enabled:hover {
+  background-color: #f3f4f6;
+}
+
+.p-inputtext.p-variant-filled:enabled:focus {
+  background-color: #ffffff;
+}
+
+.p-inputtext.p-inputtext-sm {
+  font-size: 0.875rem;
+  padding: 0.65625rem 0.65625rem;
+}
+
+.p-inputtext.p-inputtext-lg {
+  font-size: 1.25rem;
+  padding: 0.9375rem 0.9375rem;
+}
+
+.p-inputtext {
+  margin: 0;
+}
+
+.p-fluid .p-inputtext {
+  width: 100%;
+}
+
+/* InputGroup */
+.p-inputgroup {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+}
+
+.p-inputgroup-addon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.p-inputgroup .p-float-label {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+}
+
+.p-inputgroup .p-inputtext,
+.p-fluid .p-inputgroup .p-inputtext,
+.p-inputgroup .p-inputwrapper,
+.p-inputgroup .p-inputwrapper > .p-component {
+  flex: 1 1 auto;
+  width: 1%;
+}
+
+/* Floating Label */
+.p-float-label {
+  display: block;
+  position: relative;
+}
+
+.p-float-label label {
+  position: absolute;
+  pointer-events: none;
+  top: 50%;
+  margin-top: -0.5rem;
+  transition-property: all;
+  transition-timing-function: ease;
+  line-height: 1;
+}
+
+.p-float-label textarea ~ label {
+  top: 1rem;
+}
+
+.p-float-label input:focus ~ label,
+.p-float-label input.p-filled ~ label,
+.p-float-label textarea:focus ~ label,
+.p-float-label textarea.p-filled ~ label,
+.p-float-label .p-inputwrapper-focus ~ label,
+.p-float-label .p-inputwrapper-filled ~ label {
+  top: -0.75rem;
+  font-size: 12px;
+}
+
+.p-float-label .input:-webkit-autofill ~ label {
+  top: -20px;
+  font-size: 12px;
+}
+
+.p-float-label .p-placeholder,
+.p-float-label input::placeholder,
+.p-float-label .p-inputtext::placeholder {
+  opacity: 0;
+  transition-property: all;
+  transition-timing-function: ease;
+}
+.p-float-label .p-focus .p-placeholder,
+.p-float-label input:focus::placeholder,
+.p-float-label .p-inputtext:focus::placeholder {
+  opacity: 1;
+  transition-property: all;
+  transition-timing-function: ease;
+}
+
+.p-input-icon-left,
+.p-input-icon-right {
+  position: relative;
+  display: inline-block;
+}
+
+.p-input-icon-left > i,
+.p-input-icon-left > .p-icon-wrapper,
+.p-input-icon-right > i,
+.p-input-icon-right > .p-icon-wrapper {
+  position: absolute;
+  top: 50%;
+  margin-top: -0.5rem;
+}
+
+.p-fluid .p-input-icon-left,
+.p-fluid .p-input-icon-right {
+  display: block;
+  width: 100%;
+}
+
+/** END:INPUT TEXT **/
+
+/** RADIO BUTTON **/
+
+.p-radiobutton {
+  width: 22px;
+  height: 22px;
+}
+
+.p-radiobutton .p-radiobutton-box {
+  border: 2px solid #d1d5db;
+  background: #ffffff;
+  width: 22px;
+  height: 22px;
+  color: #4b5563;
+  border-radius: 50%;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s,
+    box-shadow 0.2s;
+  outline-color: transparent;
+}
+
+.p-radiobutton .p-radiobutton-box:not(.p-disabled):not(.p-highlight):hover {
+  border-color: var(--primary-color-hover);
+}
+
+.p-radiobutton .p-radiobutton-box:not(.p-disabled).p-focus {
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: 0 0 0 0.1rem var(--primary-color-active);
+  border-color: var(--primary-color-active);
+}
+
+.p-radiobutton .p-radiobutton-box .p-radiobutton-icon {
+  width: 12px;
+  height: 12px;
+  transition-duration: 0.2s;
+  background-color: var(--primary-color);
+}
+
+.p-radiobutton .p-radiobutton-box.p-highlight {
+  border-color: var(--primary-color);
+  background: var(--primary-color);
+}
+
+.p-radiobutton .p-radiobutton-box.p-highlight:not(.p-disabled):hover {
+  border-color: var(--primary-color-hover);
+  background: var(--primary-color-hover);
+  color: #ffffff;
+}
+
+.p-radiobutton
+  .p-radiobutton-box.p-highlight:not(.p-disabled):hover
+  > .p-radiobutton-icon {
+  background-color: var(--primary-color-hover);
+}
+
+.p-radiobutton.p-variant-filled .p-radiobutton-box {
+  background-color: #f3f4f6;
+}
+
+.p-radiobutton.p-variant-filled .p-radiobutton-box:not(.p-disabled):hover {
+  background-color: #f3f4f6;
+}
+
+.p-radiobutton.p-variant-filled .p-radiobutton-box.p-highlight {
+  background: #3b82f6;
+}
+
+.p-radiobutton.p-variant-filled
+  .p-radiobutton-box.p-highlight:not(.p-disabled):hover {
+  background: #1d4ed8;
+}
+
+p-radiobutton.ng-dirty.ng-invalid > .p-radiobutton > .p-radiobutton-box {
+  border-color: #e24c4c;
+}
+
+.p-input-filled .p-radiobutton .p-radiobutton-box {
+  background-color: #f3f4f6;
+}
+
+.p-input-filled .p-radiobutton .p-radiobutton-box:not(.p-disabled):hover {
+  background-color: #f3f4f6;
+}
+
+.p-input-filled .p-radiobutton .p-radiobutton-box.p-highlight {
+  background: #3b82f6;
+}
+
+.p-input-filled
+  .p-radiobutton
+  .p-radiobutton-box.p-highlight:not(.p-disabled):hover {
+  background: #1d4ed8;
+}
+
+.p-radiobutton-label {
+  margin-left: 0.5rem;
+}
+
+.p-radiobutton {
+  display: inline-flex;
+  cursor: pointer;
+  user-select: none;
+  vertical-align: bottom;
+  position: relative;
+}
+
+.p-radiobutton-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.p-radiobutton-icon {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0) scale(0.1);
+  border-radius: 50%;
+  visibility: hidden;
+}
+
+.p-radiobutton-box.p-highlight .p-radiobutton-icon {
+  transform: translateZ(0) scale(1, 1);
+  visibility: visible;
+}
+
+p-radiobutton {
+  display: inline-flex;
+  vertical-align: bottom;
+  align-items: center;
+}
+
+.p-radiobutton-label {
+  line-height: 1;
+}
+
+/** END:RADIO BUTTON **/
+
+/** INPUTTEXTAREA **/
+.p-inputtextarea-resizable {
+  overflow: hidden;
+  resize: none;
+}
+
+.p-fluid .p-inputtextarea {
+  width: 100%;
+}
+
+/** END:INPUTTEXTAREA **/
+/** DATAVIEW **/
+.p-dataview {
+  position: relative;
+}
+
+.p-dataview .p-dataview-loading-overlay {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.p-dataview .p-paginator-top {
+  border-width: 0 0 1px 0;
+  border-radius: 0;
+}
+
+.p-dataview .p-paginator-bottom {
+  border-width: 0 0 1px 0;
+  border-radius: 0;
+}
+
+.p-dataview .p-dataview-header {
+  background: #f9fafb;
+  color: #374151;
+  border: 1px solid #e5e7eb;
+  border-width: 1px 0 1px 0;
+  padding: 1rem 1rem;
+  font-weight: 700;
+}
+
+.p-dataview .p-dataview-content {
+  background: #ffffff;
+  color: #4b5563;
+  border: 0 none;
+  padding: 0;
+}
+
+.p-dataview .p-dataview-footer {
+  background: #f9fafb;
+  color: #374151;
+  border: 1px solid #e5e7eb;
+  border-width: 0 0 1px 0;
+  padding: 1rem 1rem;
+  font-weight: 700;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.p-dataview .p-dataview-loading-icon {
+  font-size: 2rem;
+}
+
+.p-dataview .p-dataview-emptymessage {
+  padding: 1.25rem;
+}
+
+/** PAGINATOR **/
+.p-paginator {
+  background: #ffffff;
+  color: var(--text-black);
+  border: 1px solid;
+  border-width: 0;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+}
+
+.p-paginator .p-paginator-first,
+.p-paginator .p-paginator-prev,
+.p-paginator .p-paginator-next,
+.p-paginator .p-paginator-last {
+  background-color: transparent;
+  border: 1px solid var(--grayscale-light);
+  color: var(--text-black);
+  min-width: 3rem;
+  height: 3rem;
+  margin: 0.143rem;
+  transition: box-shadow 0.2s;
+  border-radius: 8px;
+}
+
+.p-paginator .p-paginator-first:not(.p-disabled):not(.p-highlight):hover,
+.p-paginator .p-paginator-prev:not(.p-disabled):not(.p-highlight):hover,
+.p-paginator .p-paginator-next:not(.p-disabled):not(.p-highlight):hover,
+.p-paginator .p-paginator-last:not(.p-disabled):not(.p-highlight):hover {
+  background: var(--primary-color-hover);
+  border-color: transparent;
+  color: white;
+}
+
+.p-paginator .p-dropdown {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  height: 3rem;
+}
+
+.p-paginator .p-dropdown .p-dropdown-label {
+  padding-right: 0;
+}
+
+.p-paginator .p-paginator-page-input {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.p-paginator .p-paginator-page-input .p-inputtext {
+  max-width: 3rem;
+}
+
+.p-paginator .p-paginator-current {
+  background-color: transparent;
+  border: 0 none;
+  color: #6b7280;
+  min-width: 3rem;
+  height: 3rem;
+  margin: 0.143rem;
+  padding: 0 0.5rem;
+}
+
+.p-paginator .p-paginator-pages .p-paginator-page {
+  background-color: white;
+  border: 1px solid var(--grayscale-light);
+  color: var(--text-black);
+  min-width: 3rem;
+  height: 3rem;
+  margin: 0.143rem;
+  transition: box-shadow 0.2s;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+  background: white;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+}
+
+.p-paginator .p-paginator-pages .p-paginator-page:not(.p-highlight):hover {
+  background: var(--primary-color-hover);
+  border-color: transparent;
+  color: white;
+}
+
+.p-paginator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.p-paginator-left-content {
+  margin-right: auto;
+}
+
+.p-paginator-right-content {
+  margin-left: auto;
+}
+
+.p-paginator-page,
+.p-paginator-next,
+.p-paginator-last,
+.p-paginator-first,
+.p-paginator-prev,
+.p-paginator-current {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  user-select: none;
+  overflow: hidden;
+  position: relative;
+}
+
+.p-paginator-element:focus {
+  z-index: 1;
+  position: relative;
+}
+
+/** RIPLE **/
+.p-ripple {
+  overflow: hidden;
+  position: relative;
+}
+
+.p-ink {
+  display: block;
+  position: absolute;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 100%;
+  transform: scale(0);
+}
+
+.p-ink-active {
+  animation: ripple 0.4s linear;
+}
+
+.p-ripple-disabled .p-ink {
+  display: none !important;
+}
+
+@keyframes ripple {
+  100% {
+    opacity: 0;
+    transform: scale(2.5);
+  }
 }
