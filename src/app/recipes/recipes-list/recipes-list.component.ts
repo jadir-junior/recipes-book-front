@@ -30,7 +30,6 @@ import { Router } from '@angular/router';
         [rows]="9"
         filterBy="name"
       >
-        <!-- layout="grid" -->
         <ng-template let-recipes pTemplate="list">
           <div class="grid grid-nogutter">
             <div *ngFor="let recipe of recipes" class="col-12">
