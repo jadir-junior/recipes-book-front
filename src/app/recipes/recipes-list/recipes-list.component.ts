@@ -31,8 +31,8 @@ import { Router } from '@angular/router';
         filterBy="name"
       >
         <ng-template let-recipes pTemplate="list">
-          <div class="grid">
-            <div *ngFor="let recipe of recipes" class="col-4">
+          <div class="grid ">
+            <div *ngFor="let recipe of recipes" class="col-4 ">
               <div class="rcp-card" (click)="editRecipe(recipe)">
                 <div>
                   <!-- <div>
@@ -42,11 +42,17 @@ import { Router } from '@angular/router';
                     </div>
                   </div> -->
                   <div>
-                    <!-- <img
-                      [src]="'assets/recipes/' + recipe.imageUrl"
-                      [alt]="recipe.title"
-                    /> -->
-                    <div class="rcp-title">{{ recipe?.title }}</div>
+                    <div class="rcp-header">
+                      <img
+                        class="rcp-image max-h-16rem"
+                        [src]="recipe.imageUrl"
+                        [alt]="recipe.title"
+                      />
+                    </div>
+                    <div class="rcp-body">
+                      <div class="rcp-title">{{ recipe?.title }}</div>
+                    </div>
+
                     <!-- <p-rating
                       [ngModel]="recipe.rating"
                       [readonly]="true"
@@ -69,12 +75,23 @@ import { Router } from '@angular/router';
     `
       .rcp-card {
         border: 1px solid var(--grayscale-light);
+        border-radius: 8px;
+      }
+
+      .rcp-image {
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        width: 100%;
       }
 
       .rcp-title {
         color: var(--text-black);
         font-size: 21px;
         font-weight: 600;
+      }
+
+      .rcp-body {
+        padding: 8px 10px 14px 10px;
       }
     `,
   ],
