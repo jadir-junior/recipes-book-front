@@ -28,6 +28,18 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
+h1 {
+  font-size: 40px;
+}
+
+.text-primary {
+  color: var(--primary-color);
+}
+
+.text-subtitle {
+  color: var(--text-gray-dark);
+}
+
 small {
   color: var(--text-gray);
 }
